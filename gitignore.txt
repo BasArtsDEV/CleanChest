@@ -1,0 +1,17 @@
+# --- IntelliJ IDEA ---
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+
+# --- Build Tools (Maven) ---
+target/
+
+# --- Build Tools (Gradle - si tu l'utilises) ---
+.gradle/
+build/
+
+# --- Fichiers système ---
+.DS_Store
+Thumbs.db
