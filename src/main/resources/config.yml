@@ -1,0 +1,34 @@
+# CleanChest - Configuration File
+
+# List of materials that are strictly forbidden.
+# Any item of this type found will be deleted instantly.
+forbidden-materials:
+  - BEDROCK
+  - BARRIER
+  - COMMAND_BLOCK
+  - COMMAND_BLOCK_MINECART
+  - STRUCTURE_BLOCK
+  - JIGSAW
+  - DEBUG_STICK
+
+# Enchantment settings
+# If any enchantment on an item exceeds this level, the item is removed.
+# Set to 255 to effectively disable this check for vanilla-style limits.
+max-enchantment-level: 10
+
+# Scan Settings
+# Whether to check Armor Stands, Item Frames, and dropped items on the ground.
+scan-entities: true
+
+# Performance Settings
+# Higher values scan faster but may cause TPS drops or lag.
+# Recommended: 5 to 20 depending on your CPU.
+chunks-per-tick: 5
+
+# Localization / Messages
+messages:
+  prefix: "<gradient:#FF5F6D:#FFC371><b>CleanChest</b></gradient> <dark_gray>»</dark_gray> "
+  no-permission: "§cYou do not have permission to execute this command."
+  start: "§eStarting global scan... §f(Performance may be slightly impacted)"
+  progress: "§7Progress: §a%percent%% §8[§f%current%§7/§f%total% chunks§8]"
+  finished: "§aCleanup complete! §f%items% §7illegal items removed across §f%chunks% §7chunks."

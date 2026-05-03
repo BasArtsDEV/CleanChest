@@ -2,8 +2,12 @@ name: CleanChest
 description: $description
 version: '${version}'
 
-main: dev.basarts.cleanChest.Main
+main: dev.basarts.cleanchest.Main
 api-version: '26.1.2'
 load: POSTWORLD
 
 authors: [ BasArts ]
+
+commands:
+  cleanchest:
+    description: allow staff to remove specific items from chests
