@@ -32,7 +32,7 @@ public class UpdateChecker {
     private static final int ID = 101616;
     private static final String ERR_MSG = "&cUpdate checker failed!";
     private static final String UPDATE_MSG = "&6A new update is available at: https://www.spigotmc.org/resources/" + ID + "/updates";
-    private static final Permission UPDATE_PERM = new Permission("yourplugin.update", PermissionDefault.TRUE);
+    private static final Permission UPDATE_PERM = new Permission("cleanchest.update", PermissionDefault.TRUE);
     private static final long CHECK_INTERVAL = 12_000; //In ticks.
 
     public UpdateChecker(final JavaPlugin javaPlugin) {
