@@ -1,6 +1,7 @@
 package dev.basarts.cleanchest;
 
 import dev.basarts.cleanchest.Commands.CleanChestCMD;
+import dev.basarts.cleanchest.Utils.UpdateChecker;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class Main extends JavaPlugin {
@@ -12,6 +13,8 @@ public final class Main extends JavaPlugin {
         instance = this;
 
         getCommand("cleanchest").setExecutor(new CleanChestCMD());
+
+        new UpdateChecker(this).checkForUpdate();
     }
 
     @Override
