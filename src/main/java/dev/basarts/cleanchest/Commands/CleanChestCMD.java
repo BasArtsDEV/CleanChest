@@ -2,8 +2,8 @@ package dev.basarts.cleanchest.Commands;
 
 import dev.basarts.cleanchest.Main;
 import dev.basarts.cleanchest.Utils.MessageUtils;
-import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
+import org.bukkit.Sound;
 import org.bukkit.World;
 import org.bukkit.block.BlockState;
 import org.bukkit.block.Container;
@@ -32,13 +32,15 @@ public class CleanChestCMD implements CommandExecutor {
 
         if (!player.hasPermission("cleanchest.use")) {
             MessageUtils.sendMessage(player, prefix + MessageUtils.format(plugin.getConfig().getString("messages.no-permission")));
+            player.playSound(player, Sound.BLOCK_CHEST_LOCKED, 1f, 1f);
             return true;
         }
 
-        World world = Bukkit.getWorlds().getFirst();
+        World world = player.getWorld();
         Chunk[] loadedChunks = world.getLoadedChunks();
 
         MessageUtils.sendMessage(player, prefix + MessageUtils.format(plugin.getConfig().getString("messages.start")));
+        player.playSound(player, Sound.BLOCK_NOTE_BLOCK_PLING, 1f, 1f);
 
         new BukkitRunnable() {
             int index = 0;
@@ -52,7 +54,10 @@ public class CleanChestCMD implements CommandExecutor {
                         String finished = MessageUtils.format(plugin.getConfig().getString("messages.finished"),
                                 "%items%", String.valueOf(deletedCount),
                                 "%chunks%", String.valueOf(loadedChunks.length));
+
                         MessageUtils.sendMessage(player, prefix + finished);
+                        player.playSound(player, Sound.BLOCK_ANVIL_USE, 1f, 1f);
+
                         this.cancel();
                         return;
                     }
@@ -68,7 +73,9 @@ public class CleanChestCMD implements CommandExecutor {
 
                     String progressMsg = MessageUtils.format(plugin.getConfig().getString("messages.progress"),
                             "%bar%", bar,
-                            "%percent%", String.format("%.1f", percent));
+                            "%percent%", String.format("%.1f", percent),
+                            "%current%", String.valueOf(index),
+                            "%total%", String.valueOf(loadedChunks.length));
 
                     MessageUtils.sendActionBar(player, progressMsg);
                 }
@@ -93,7 +100,7 @@ public class CleanChestCMD implements CommandExecutor {
                     case Item itemEnt -> {
                         if (isCheat(itemEnt.getItemStack())) {
                             entity.remove();
-                            removed++;
+                            removed += itemEnt.getItemStack().getAmount();
                         }
                     }
                     case ArmorStand armorStand -> removed += checkEquipment(armorStand.getEquipment());
@@ -117,7 +124,7 @@ public class CleanChestCMD implements CommandExecutor {
             ItemStack item = inv.getItem(i);
             if (isCheat(item)) {
                 inv.setItem(i, null);
-                count++;
+                count += item.getAmount();
             }
         }
         return count;
